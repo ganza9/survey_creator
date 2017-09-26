@@ -1,0 +1,9 @@
+<h1><%= @survey.name%></h1>
+
+<% (@survey.question.reorder('id ASC')).each do |question| %>
+  <li> <%= question.question %></li>
+    <% (question.opinion.reorder('id ASC')).each do |opinion| %>
+    <input type="radio" name="<%= question.id %>" value="<%= opinion.id %>">
+      <%= opinion.opinion %>
+    <% end %>
+  <% end %>

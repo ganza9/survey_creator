@@ -10,8 +10,23 @@ require('pry')
 require('pg')
 
 get('/')do
-  @surveys = Survey.all()
   erb(:index)
+end
+
+get('/create') do
+  @surveys = Survey.all()
+  erb(:create)
+end
+
+get('/take') do
+  @surveys = Survey.all()
+  erb(:take)
+end
+get('/take/:id') do
+  id = params[:id].to_i
+  @survey = Survey.find(id)
+  @questions = Question.all()
+  erb(:take_survey)
 end
 
 post('/add_survey')do
@@ -76,5 +91,6 @@ post('/answer')do
   opinion = Opinion.new({:opinion => answer, :question_id => question})
   opinion.save()
   @survey = Survey.find(id)
+  binding.pry
   erb(:survey)
 end
