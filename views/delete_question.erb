@@ -1,0 +1,18 @@
+<h1><%= @survey.name%></h1>
+
+<ul>
+
+<% @survey.question.each do |question| %>
+  <li> <%= question.question %>
+    <form class="" action="/" method="post">
+      <input type="hidden" name="_method" value="delete">
+      <input type="hidden" name="id" value="<%= question.id %>">
+      <button type="submit" class="btn btn-xs" name="button">
+        <span class="glyphicon glyphicon-trash"></span>
+      </button>
+    </form>
+  </li>
+  <br>
+  <% end %>
+</ul>
+<a href="/survey/<%= @survey.id%>">Return <%= @survey.name%></a>

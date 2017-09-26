@@ -1,0 +1,50 @@
+<div class="delete_edit">
+  <a href="/delete/<%= @survey.id%>">
+    <span class="glyphicon glyphicon-trash"></span>
+  </a>
+    <a href="/edit/<%= @survey.id%>">
+    <span class="glyphicon glyphicon-pencil"></span>
+  </a>
+</div>
+<h1><%= @survey.name%></h1>
+
+<ul>
+<form>
+  <% (@survey.question.reorder('id ASC')).each do |question| %>
+    <li> <%= question.question %></li>
+      <% (question.opinion.reorder('id ASC')).each do |opinion| %>
+      <input type="radio" name="<%= question.id %>" value="<%= opinion.id %>">
+        <%= opinion.opinion %>
+      <% end %>
+    <% end %>
+  </ul>
+</form>
+<form action="/add_question" method="post">
+  <label for="question">Add a question:</label>
+  <br>
+  <input type="text" name="question" id="question">
+  <input type="hidden" name="survey_id" value="<%= @survey.id %>">
+
+  <button type="submit" name="button">Add</button>
+</form>
+
+<br>
+
+<form class="" action="/answer" method="post">
+  <label for="">Choose Question and Add Answer</label>
+  <br>
+  <select class="" name="question">
+    <% (@survey.question.reorder('id ASC')).each do |question| %>
+      <option value=" <%= question.id %>"> <%= question.question %></option>
+    <% end %>
+  </select>
+
+
+  <input type="text" name="answer" id="answer">
+  <input type="hidden" name="survey_id" value="<%= @survey.id%>">
+  <button type="submit" name="button">Add</button>
+</form>
+
+<br>
+
+<a href="/">Return Home</a>

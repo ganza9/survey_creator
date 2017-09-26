@@ -1,0 +1,17 @@
+<h1><%= @survey.name%></h1>
+
+
+<form action="/" method="post">
+  <input type="hidden" name="_method" value="patch">
+  <input type="hidden" name="id" value="<%= @survey.id%>">
+<% (@survey.question.reorder('id ASC')).each do |question| %>
+    <input type="text" name="question[]value" value='<%= question.question %>'>
+    <input type="hidden" name="question[]id" value='<%= question.id %>'>
+  <br>
+  <% end %>
+
+
+  <button type="submit" name="button">Edit</button>
+</form>
+
+<a href="/survey/<%= @survey.id%>">Return <%= @survey.name%></a>
